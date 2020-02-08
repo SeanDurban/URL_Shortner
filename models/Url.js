@@ -3,12 +3,12 @@ var mongoose = require('mongoose');
 // Url Schema definition
 var urlSchema = mongoose.Schema({
   originalUrl : {
-    type: String
+    type: String,
     required: [true, 'Original Url required']
   },
   // Not necessary to include whole shortened url
   hashedUrl : {
-    type: String
+    type: String,
     required: [true, 'Hashed Url required']
   }
 });
