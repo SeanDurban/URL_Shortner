@@ -9,22 +9,28 @@ const HASHED_URL_BASE = 'http://tier.app/';
 // This expects only the hashed portion of the url eg) tier.app/XYZ123
 router.get('/:hashedUrl', (req, res) => {
   urlController.getOriginalUrl(req.params.hashedUrl, (err, result) => {
-    if(err || result == null){
-      res.status(404).send('Not Found \n' + err);
+    if(err){
+      res.status(500).send('Error: ' + err);
     }
-    res.status(200).send('The original long url: ' + result.originalUrl);
+    else if(result == null){
+      res.status(404).send('Not Found');
+    }
+    else{
+      res.status(200).send('The original long url: ' + result.originalUrl);
+    }
   });
 });
 
 
 router.get('/', function(req, res, next) {
-  res.send("Must specify the shortened url");
+  res.send("Must specify the shortened url in the form /api/url/xyz123");
 });
 
 
 router.post('/', (req, res) => {
   let originalUrl = req.body.originalUrl;
   let hash = urlHasher.getUrlHash(originalUrl);
+  
   urlController.saveUrl(originalUrl, hash, (err, result) =>{
     if(err || result == null){
       res.status(500).send('Save failed: \n' + err);
