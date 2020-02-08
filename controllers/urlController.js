@@ -3,7 +3,7 @@ var UrlModel = require('.././models/url');
 var Url = mongoose.model('Url');
 
 function getOriginalUrl(hashedUrl, callback) {
-  Url.find({
+  Url.findOne({
     hashedUrl : hashedUrl
   }, (err, res) => {
     if(err) console.log(err);

@@ -3,9 +3,16 @@ var router = express.Router();
 var urlHasher = require('.././Utils/urlhasher');
 var urlController = require('.././controllers/urlController');
 
+//As noted in the spec - ideally this would be set in config not here
+const HASHED_URL_BASE = 'http://tier.app/';
+
+// This expects only the hashed portion of the url eg) tier.app/XYZ123
 router.get('/:hashedUrl', (req, res) => {
   urlController.getOriginalUrl(req.params.hashedUrl, (err, result) => {
-    res.send(result);
+    if(err || result == null){
+      res.status(404).send('Not Found \n' + err);
+    }
+    res.status(200).send('The original long url: ' + result.originalUrl);
   });
 });
 
@@ -20,9 +27,10 @@ router.post('/', (req, res) => {
   let hash = urlHasher.getUrlHash(originalUrl);
   urlController.saveUrl(originalUrl, hash, (err, result) =>{
     if(err || result == null){
-      res.send(500, 'Save failed: \n' + err);
+      res.status(500).send('Save failed: \n' + err);
     }
-    res.send('Saved document: ' + result);
+    var fullHashedUrl = HASHED_URL_BASE + result.hashedUrl;
+    res.status(201).send('The generated shortened url: ' + fullHashedUrl);
   });
 });
 
