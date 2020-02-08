@@ -1,27 +1,29 @@
 var express = require('express');
 var router = express.Router();
 var urlHasher = require('.././Utils/urlhasher');
-var dbhandler = require('.././Utils/dbhandler');
+var urlController = require('.././controllers/urlController');
 
-
-router.get('/:shortUrl', (req, res) => {
-  var dbResult = dbhandler.getOriginalUrl(req.params.shortUrl);
-  res.send(dbResult);
+router.get('/:hashedUrl', (req, res) => {
+  urlController.getOriginalUrl(req.params.hashedUrl, (err, result) => {
+    res.send(result);
+  });
 });
 
-/* GET a long URL for provided short URL. */
+
 router.get('/', function(req, res, next) {
   res.send("Must specify the shortened url");
 });
 
 
-
 router.post('/', (req, res) => {
-  console.log(req.body.longUrl);
-
-  let hash = urlHasher.getUrlHash(req.body.longUrl);
-
-  res.send(hash + '\nbody \n' + JSON.stringify(req.body));
+  let originalUrl = req.body.originalUrl;
+  let hash = urlHasher.getUrlHash(originalUrl);
+  urlController.saveUrl(originalUrl, hash, (err, result) =>{
+    if(err || result == null){
+      res.send(500, 'Save failed: \n' + err);
+    }
+    res.send('Saved document: ' + result);
+  });
 });
 
 module.exports = router;
