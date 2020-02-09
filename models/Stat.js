@@ -9,7 +9,7 @@ var statSchema = mongoose.Schema({
     required: [true, 'Hashed Url required']
   },
   numberVisits : {
-    type: Integer,
+    type: Number,
     default: 0
   }
 });
