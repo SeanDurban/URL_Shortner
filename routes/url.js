@@ -23,21 +23,27 @@ router.get('/:hashedUrl', (req, res) => {
 
 
 router.get('/', function(req, res, next) {
-  res.send("Must specify the shortened url in the form /api/url/xyz123");
+  res.status(400).send("Must specify the shortened url in the form /api/url/xyz123");
 });
 
 
 router.post('/', (req, res) => {
   let originalUrl = req.body.originalUrl;
-  let hash = urlHasher.getUrlHash(originalUrl);
-  
-  urlController.saveUrl(originalUrl, hash, (err, result) =>{
-    if(err || result == null){
-      res.status(500).send('Save failed: \n' + err);
-    }
-    var fullHashedUrl = HASHED_URL_BASE + result.hashedUrl;
-    res.status(201).send('The generated shortened url: ' + fullHashedUrl);
-  });
+
+  if(originalUrl == null || originalUrl.length() == 0) {
+    res.status(400).send("Must specify originalUrl as POST body property").end();
+  }
+  else {
+    let hash = urlHasher.getUrlHash(originalUrl);
+
+    urlController.saveUrl(originalUrl, hash, (err, result) => {
+      if(err || result == null){
+        res.status(500).send('Save failed: \n' + err);
+      }
+      var fullHashedUrl = HASHED_URL_BASE + result.hashedUrl;
+      res.status(201).send('The generated shortened url: ' + fullHashedUrl);
+    });
+  }
 });
 
 module.exports = router;
