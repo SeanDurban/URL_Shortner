@@ -16,6 +16,8 @@ router.get('/:hashedUrl', (req, res) => {
       res.status(404).send('Not Found');
     }
     else{
+      // This sends back the originalUrl if it exists
+      // Could be an idea to directly redirect to that website
       res.status(200).send('The original long url: ' + result.originalUrl);
     }
   });
@@ -30,10 +32,14 @@ router.get('/', function(req, res, next) {
 router.post('/', (req, res) => {
   let originalUrl = req.body.originalUrl;
 
+  //Some validation on the originalUrl should go here
   if(originalUrl == null) {
     res.status(400).send("Must specify originalUrl as POST body property").end();
   }
   else {
+
+    //I didn't have time but to guarantee unique hash should look up the table to see if it already exists
+    // If it does exist then recompute it
     let hash = urlHasher.getUrlHash(originalUrl);
 
     urlController.saveUrl(originalUrl, hash, (err, result) => {

@@ -9,6 +9,7 @@ function getOriginalUrl(hashedUrl, callback) {
   }, (err, res) => {
     if(err) console.log(err);
     if(!err){
+      // No need for async here
       statController.updateStatVisits(hashedUrl);
     }
     callback(err, res);
