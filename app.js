@@ -46,6 +46,8 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('DB connected');
 });
+// setting it use mongoose implementation (not native to mongodb)
+mongoose.set('useFindAndModify', false);
 
 
 module.exports = app;
