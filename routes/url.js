@@ -30,7 +30,7 @@ router.get('/', function(req, res, next) {
 router.post('/', (req, res) => {
   let originalUrl = req.body.originalUrl;
 
-  if(originalUrl == null || originalUrl.length() == 0) {
+  if(originalUrl == null) {
     res.status(400).send("Must specify originalUrl as POST body property").end();
   }
   else {
