@@ -18,7 +18,7 @@ router.get('/:hashedUrl', (req, res) => {
     else{
       // This sends back the originalUrl if it exists
       // Could be an idea to directly redirect to that website
-      res.status(200).send('The original long url: ' + result.originalUrl);
+      res.status(200).send(result.originalUrl);
     }
   });
 });
@@ -47,7 +47,7 @@ router.post('/', (req, res) => {
         res.status(500).send('Save failed: \n' + err);
       }
       var fullHashedUrl = HASHED_URL_BASE + result.hashedUrl;
-      res.status(201).send('The generated shortened url: ' + fullHashedUrl);
+      res.status(201).send(fullHashedUrl);
     });
   }
 });
