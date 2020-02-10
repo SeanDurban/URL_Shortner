@@ -36,17 +36,12 @@
         </div>
       </form>
         <br><br>
-        <div class="field has-addons has-addons-centered">
+        <div class="field has-addons has-addons-centered" onclick="copyToClipboard()" title= "Copy to clipboard">
           <div class="control has-icons-right">
-            <input class="input is-rounded is-medium is-outlined" type="text" placeholder="Shortened link"  size="30" <% if(shortenedUrl){%> value =  <%=shortenedUrl%> <%}%> readonly>
+            <input id="shortenedUrlOutput" class="input is-rounded is-medium is-outlined" type="text" placeholder="Shortened link"  size="30" <% if(shortenedUrl){%> value =  <%=shortenedUrl%> <%}%> readonly>
             <span class="icon is-medium is-right is-dark">
-              <i class="fas fa-copy" onClick=></i>
+              <i class="fas fa-copy"></i>
             </span>
-          </div>
-          <div class="control">
-            <a class="button is-primary is-medium  is-outlined is-rounded has-text-centered">
-              Copy link
-            </a>
           </div>
         </div>
       </div>
@@ -78,3 +73,12 @@
   </footer>
 </body>
 </html>
+<!- Ideally this wouldn't be inline javascript but time limits--!>
+<script type="text/javascript">
+  function copyToClipboard() {
+    var copyText = document.getElementById("shortenedUrlOutput");
+    copyText.select();
+    document.execCommand("copy");
+    alert("Copied!");
+  }
+</script>
