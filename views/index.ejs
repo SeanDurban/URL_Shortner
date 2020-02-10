@@ -23,16 +23,18 @@
           Possibly the <b><u>greatest</u></b> url shortener...
         </p>
         <br><br>
+        <form action= "/" method="post">
         <div class="field has-addons has-addons-centered">
-          <div class="control">
-            <input class="input is-rounded is-medium" type="text" placeholder="Link to shorten" size="55">
-          </div>
-          <div class="control">
-            <a class="button is-rounded is-medium is-dark">
-              Go!
-            </a>
-          </div>
+            <div class="control">
+              <input class="input is-rounded is-medium" type="text" name="originalUrl" placeholder="Link to shorten" size="55" required>
+            </div>
+            <div class="control">
+              <button type ="submit" value = "Submit" class="button is-rounded is-medium is-dark">
+                Go!
+              </button>
+            </div>
         </div>
+      </form>
         <br><br>
         <div class="field has-addons has-addons-centered">
           <div class="control has-icons-right">
