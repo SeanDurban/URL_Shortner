@@ -1,6 +1,8 @@
 # URL_Shortner
 
-Both front-end and back-end challenges. I treated them separately so the frontend makes calls to the backend API. 
+Both front-end and back-end of a simple url shortener.
+
+This was completed in a timed fashion as a challenge. The solution is functional for the main use cases but is basic. Other additions would increase the quality of the solutions such as testing, error handling, refactoring code, implementing better practices etc. Better validation of parameters and increased security to prevent attacks.
 
 (Realised when it was too late but Shortener*)
 
@@ -20,8 +22,3 @@ To run the website (found at http://localhost:8080)
 npm start
 
 ```
-
-## Comments
-This was a nice challenge but trying to get so much done is comparatively little time was a struggle. The overhead of setting the technologies up and getting a barebones structure to work was bigger than expected and ultimately I ran out of time to increase the quality of the solutions such as testing, error handling, refactoring code, implementing better practices etc. Better validation of parameters and increased security to prevent attacks.
-
-The solution works functionally for correct use cases. Some bonus functionality was implemented too such as the stats collection and basic user data validation.
